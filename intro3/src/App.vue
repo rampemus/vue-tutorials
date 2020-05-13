@@ -1,38 +1,14 @@
 <template>
-<div id='app'>
-  <div class='contain'>
-    <h2>Blog Posts</h2>
-
-    <div class='new'>
-      <h3>Add a New Post</h3>
-      <form>
-        <input v-model='newTitle' placeholder='title' required/>
-        <input v-model='newAuthor' placeholder='author name' required/>
-        <select v-model='newLabel' required>
-        <option disabled value=''>Add a New label</option>
-        <option>Science</option>
-        <option>Math</option>
-        <option>Poetry</option>
-        <option>History</option>
-      </select>
-        <button type='submit' @click='this.addBlog'>Add New Blog Post</button>
-      </form>
+<div id="app">
+  <h1>Your Upcoming Destinations</h1>
+  <div class="location-contain">
+    <div class="locations">
+       <div class="place">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/moscow.svg" width="235" height="300"/>
+        <h2>Moscow</h2>
+        <p>Moscow is the capital and most populous city of Russia, with 13.2 million residents within the city limits and 17.8 million within the urban area. Moscow has the status of a Russian federal city.</p>
+      </div>
     </div>
-
-    <select v-model='selected'>
-      <option disabled value=''>Filter with a label</option>
-      <option>Science</option>
-      <option>Math</option>
-      <option>Poetry</option>
-      <option>History</option>
-    </select>
-
-    <div v-for='(post,i) in this.filtered' :key='i' class='post'>
-      <span class='label'>{{ post.label }}</span>
-      <p>{{ post.title }}</p>
-      <small>{{ post.author }}</small>
-    </div>
-
   </div>
 </div>
 </template>
@@ -42,79 +18,69 @@ export default {
   name: 'App',
   data () {
     return {
-      selected: '',
-      posts: [
-        { author: '@vFitzgerald', title: 'Quod Ducimus Omnis', label: 'science' },
-        { author: '@mPalmer', title: 'Vero Eius Laboriosam Ex Repudiandae', label: 'math' },
-        { author: '@mDean', title: 'Magnam Odit', label: 'science' },
-        { author: '@tCole', title: 'Velit Mollitia Voluptates Assumenda', label: 'science' },
-        { author: '@jCooper', title: 'Eum Commodi Cupiditate', label: 'poetry' },
-        { author: '@lLamb', title: 'Amet', label: 'history' },
-        { author: '@fMartin', title: 'Voluptatem Fuga Cum Asperiores Error', label: 'science' },
-        { author: '@eHayes', title: 'Ipsa Consectetur Rerum Repellat Quia', label: 'math' },
-        { author: '@cCollier', title: 'Dolor Nihil Delectus', label: 'science' },
-        { author: '@cBenson', title: 'Labore Ipsum Ad Pariatur', label: 'poetry' }
-      ],
-      newTitle: '',
-      newAuthor: '',
-      newLabel: ''
-    }
-  },
-  methods: {
-    addBlog (e) {
-      e.preventDefault()
-      this.posts.push({ title: this.newTitle, author: this.newAuthor, label: this.newLabel })
-    },
-    filtered () {
-      return this.selected ? this.posts.filter(post => post.label === this.selected.toUpperCase().toLowerCase()) : this.posts
+      locations: [
+        {
+          name: 'moscow',
+          img: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/moscow.svg',
+          desc: `Moscow is the capital and most populous city of Russia, with 13.2 million residents within the city limits and 17.8 million within the urban area. Moscow has the status of a Russian federal city.`
+        },
+        {
+          name: 'paris',
+          img: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/paris1.svg',
+          desc: `Paris is the capital and most populous city of France. By the 17th century, Paris was one of Europe's major centres of finance, commerce, fashion, science, and the arts, and it retains that position still today.`
+        },
+        {
+          name: 'rome',
+          img: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/rome.svg',
+          desc: `Rome's history spans more than 2,500 years. While Roman mythology dates the founding of Rome at around 753 BC, the site has been inhabited for much longer, making it one of the oldest continuously occupied sites in Europe.`
+        },
+        {
+          name: 'paris',
+          img: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/paris2.svg',
+          desc: `Paris is the capital and most populous city of France. By the 17th century, Paris was one of Europe's major centres of finance, commerce, fashion, science, and the arts, and it retains that position still today.`
+        }
+      ]
     }
   }
 }
 </script>
 
 <style>
-$primary: #5968d7;
 
-#app {
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'NTR', sans-serif;
+  background: #eee;
+}
+
+h1 {
+  text-align: center;
+}
+
+.location-contain {
   display: flex;
   justify-content: center;
-  text-align: center;
-  font-family: sans-serif;
 }
 
-h2 { text-transform: uppercase; letter-spacing: 0.08em; text-align: center; }
-
-li { list-style: none; span { display: inline-block; width: 100px; } }
-
-.contain { width: 400px; padding: 10px 40px; }
-
-input, select { font-family: 'Work Sans', sans-serif; }
-
-button {
-  color: white; border: none; border-radius: 3px; font-family: sans-serif;
-  font-weight: 300; font-size: 13px; width: 97.5%; text-align: center; padding: 10px 10px;
-  text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; transition: 0.25s all ease;
-  background: #222; margin-bottom: 15px; &:hover { transform: translateY(1px); }
-}
-
-select { width: 100%; }
-
-.post, .new {
-  background: #eee; border: 1px solid #ddd; border-radius: 3px; padding: 10px 20px;
-  margin: 5px 0 10px; p { font-weight: bold; margin: 10px 0 5px; }
-}
-
-.new {
-  background: #666; border: #222; margin-bottom: 40px;
-  input { margin: 0 0 10px; }
-  select { width: 97.5%; margin-bottom: 10px; }
-  h3 {
-    text-transform: uppercase; font-weight: 300; letter-spacing: 0.05em; margin: 10px 0; color: white;
+.place {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 320px;
+  justify-content: center;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 20px 20px;
+  margin: 10px;
+  h2 {
+    margin: 0;
+    text-align: center;
+  }
+  img {
+    margin: 10px;
+    align-self: center;
   }
 }
 
-.label {
-  border: 1px solid black; background: white; color: black; float: right; margin-top: 10px;
-  padding: 5px 10px; border-radius: 3px;
-}
 </style>
