@@ -1,21 +1,18 @@
 <template>
 <div id="app">
   <h1>Your Upcoming Destinations</h1>
-  <div class="location-contain">
-    <div class="locations">
-       <div class="place">
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/moscow.svg" width="235" height="300"/>
-        <h2>Moscow</h2>
-        <p>Moscow is the capital and most populous city of Russia, with 13.2 million residents within the city limits and 17.8 million within the urban area. Moscow has the status of a Russian federal city.</p>
-      </div>
-    </div>
-  </div>
+  <Location v-for='location in locations' :location='location' :key='location.name'></Location>
 </div>
 </template>
 
 <script>
+import Location from './components/Location.vue'
+
 export default {
   name: 'App',
+  components: {
+    Location
+  },
   data () {
     return {
       locations: [
