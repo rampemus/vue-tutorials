@@ -10,7 +10,7 @@
     <ul>
       <li
         is="individual-comment"
-        v-for="comment in comments"
+        v-for="comment in this.$store.state.comments"
         :commentpost="comment"
         :key="comment.id"
       ></li>
@@ -44,7 +44,8 @@ export default {
         author: 'Magoo',
         authorImg: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/v-skull.jpg'
       }
-      this.comments.push(newCommentObj)
+      this.$store.commit('addComment', newCommentObj)
+      // this.comments.push(newCommentObj)
       this.newComment = ''
     }
   }

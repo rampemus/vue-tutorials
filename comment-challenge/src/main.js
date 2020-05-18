@@ -9,7 +9,7 @@ const store = new Vuex.Store({
     comments: [
       {
         id: 1,
-        text: 'Looks great Julianne!',
+        text: 'Looks great Julianne! Writing from the store',
         author: 'Robin Rendle',
         authorImg: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/v-coffee.jpg'
       },
@@ -26,6 +26,14 @@ const store = new Vuex.Store({
         authorImg: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/v-geoff.jpg'
       }
     ]
+  },
+  mutations: {
+    addComment: (state, comment) => {
+      state.comments.push({
+        ...comment,
+        id: Math.floor(Math.random() * 100 + 3)
+      })
+    }
   }
 })
 
