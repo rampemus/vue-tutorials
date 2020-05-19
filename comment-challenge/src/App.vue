@@ -8,12 +8,14 @@
     </div>
     <hr>
     <ul>
-      <li
-        is="individual-comment"
+      <individual-comment
         v-for="comment in this.$store.state.comments"
         :commentpost="comment"
         :key="comment.id"
-      ></li>
+      >
+        <small slot='beforeName'>Nick:</small>
+        <small slot='underComment'>End of comment</small>
+      </individual-comment>
     </ul>
     <input
       v-model="newComment"
@@ -33,19 +35,20 @@ export default {
   },
   data () {
     return {
-      newComment: '',
-      comments: []
+      newComment: ''
     }
   },
   methods: {
     addComment: function () {
-      const newCommentObj = {
+      const newCommentObject = {
         text: this.newComment,
         author: 'Magoo',
         authorImg: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/v-skull.jpg'
       }
-      this.$store.commit('addComment', newCommentObj)
-      // this.comments.push(newCommentObj)
+      this.$store.commit('addComment', newCommentObject)
+      this.clearNewComment()
+    },
+    clearNewComment: function () {
       this.newComment = ''
     }
   }
